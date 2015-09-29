@@ -1,0 +1,452 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.app-bar {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	position: fixed;
+	left: 0;
+	top: 0;
+	display: block;
+	width: 100%;
+	min-height: 64px;
+	z-index: 600 !important;
+	text-align: right;
+}
+
+.app-bar::before {
+	display: inline-block;
+	width: 0;
+	height: 64px;
+	vertical-align: top;
+	content: "";
+}
+
+.app-bar.seam {
+	position: absolute;
+	z-index: 0;
+}
+
+.app-bar.tall {
+	min-height: 128px;
+}
+
+.app-bar.tall.with-tabs {
+	min-height: 192px;
+}
+
+.app-bar.waterfall {
+	transition: box-shadow 0.2s;
+	-webkit-transition: box-shadow 0.2s;
+	-moz-transition: box-shadow 0.2s;
+	-o-transition: box-shadow 0.2s;
+}
+
+.app-bar > .material-icons {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	display: inline-block;
+	height: 100%;
+	line-height: 64px;
+	font-size: 28px;
+	text-align: center;
+	width: auto;
+	padding: 0 6px;
+}
+
+.app-bar > .material-icons.papyrus-button:not(.nav)::after {
+	left: -1px;
+	top: 11px;
+	/*height: 12px;*/
+}
+
+.app-bar > .material-icons.nav,
+.app-bar > .material-icons.menu {
+	/*font-size: 28px;*/
+}
+
+.app-bar > .material-icons:not(.material-icons) {
+	display: none;
+}
+
+.app-bar > .material-icons.nav {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: block;
+	width: 64px;
+	height: 64px;
+	padding: 0;
+}
+
+.app-bar > .material-icons.nav::after {
+	left: 11px;
+	top: 11px;
+}
+
+.app-bar > .material-icons.menu {
+	width: auto;
+	padding-right: 8px;
+}
+
+.app-bar > .material-icons:not(.nav):last-child {
+	margin-right: 8px;
+}
+
+.app-bar > h1 {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	position: absolute;
+	left: 72px;
+	bottom: 0;
+	display: block;
+	height: 64px;
+	font-family: "Roboto", Arial, sans-serif;
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 64px;
+	margin: 0;
+}
+
+.app-bar > h1:first-child {
+	left: 16px;
+}
+
+.app-bar.with-tabs > h1 {
+	top: 0;
+}
+
+body.app-bar-offset,
+.app-bar + .sheet {
+	margin-top: 64px;
+	padding-top: 12px;
+}
+
+.app-bar.with-tabs + .sheet {
+	margin-top: 112px;
+}
+
+.app-bar.tall + .sheet {
+	margin-top: 128px;
+}
+
+.app-bar.tall.with-tabs + .sheet {
+	margin-top: 192px;
+}
+
+.app-bar.tall > ul.papyrus-tabs {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+ul.papyrus-tabs {
+	display: block;
+	width: 100%;
+	height: 48px;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	font-family: "Roboto", Arial, sans-serif;
+	font-size: 0;
+	font-weight: 500;
+	/*background-color: white;*/
+	white-space: nowrap;
+}
+
+body.touch-device ul.papyrus-tabs {
+	overflow-x: auto;
+}
+
+body.touch-device ul.papyrus-tabs::-webkit-scrollbar {
+	height: 0 !important;
+}
+
+ul.papyrus-tabs > li {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	position: relative;
+	display: inline-block;
+	min-width: 160px;
+	max-width: 264px;
+	height: 48px;
+	line-height: 48px;
+	padding: 0 12px;
+	font-size: 14px;
+	text-align: center;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+	cursor: pointer;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+ul.papyrus-tabs > li > span {
+	max-width: 100%;
+	overflow: hidden;
+}
+
+ul.papyrus-tabs.dark > li {
+	color: rgba(0, 0, 0, 0.54);
+}
+
+ul.papyrus-tabs > li.selected {
+	color: white;
+}
+
+ul.papyrus-tabs.dark > li.selected {
+	color: rgba(0, 0, 0, 1);
+}
+
+ul.papyrus-tabs > li > .bottom-bar {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	background-color: transparent;
+	transition: width 0.1s;
+	-webkit-transition: width 0.1s;
+	-moz-transition: width 0.1s;
+	-o-transition: width 0.1s;
+}
+
+ul.papyrus-tabs:not(.no-bar) > li.selected > .bottom-bar {
+	background-color: currentColor;
+}
+
+.sheet {
+	padding: 0 12px;
+}
+
+.sheet[data-tabs-id] {
+	position: relative;
+	white-space: nowrap;
+	padding-left: 0;
+	padding-right: 0;
+	font-size: 0;
+}
+
+.sheet[data-tabs-id] > .sheet-tab {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	position: relative;
+	left: 0;
+	top: 0;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	margin-right: inherit;
+	font-size: 16px;
+	vertical-align: top;
+	white-space: normal;
+	transition: left 0.5s;
+	-webkit-transition: left 0.5s;
+	-moz-transition: left 0.5s;
+	-o-transition: left 0.5s;
+}
+
+body:not(.touch-device) *[data-tooltip]:hover::after {
+	top: calc(100% + 8px);
+	border-radius: 1px;
+	opacity: 1;
+	-webkit-transition: top 0.25s, opacity 0.25s;
+}
+
+/* Snackbar */
+
+body:not(.snackbar-visible) .snackbar:not(:hover),
+body:not(.snackbar-visible) .snackbar.action-pressed,
+body.touch-device:not(.snackbar-visible) .snackbar {
+	bottom: -128px;
+}
+
+.snackbar-wrapper {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+.snackbar {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	position: relative;
+	left: 0;
+	bottom: 16px;
+	display: block;
+	min-width: 288px;
+	max-width: 568px;
+	margin: 0 auto;
+	padding: 14px 24px;
+	border-radius: 2px;
+	font-family: "Roboto";
+	font-weight: 400;
+	font-size: 14px;
+	background-color: #323232;
+	color: rgba(255, 255, 255, 0.9);
+	transition: bottom 0.5s;
+	-webkit-transition: bottom 0.5s;
+	-moz-transition: bottom 0.5s;
+	-o-transition: bottom 0.5s;
+}
+
+.snackbar.multiline {
+	padding: 24px;
+}
+
+.snackbar > .action {
+	float: right;
+	margin-left: 24px;
+	height: 100%;
+	font-weight: 500;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+/* Tablet / Desktop */
+@media (min-width: 960px) {
+
+
+
+}
+
+/* Mobile Landscape */
+@media (max-width: 959px) and (orientation: landscape) {
+
+	.app-bar {
+		min-height: 48px;
+	}
+
+	.app-bar::before {
+		height: 48px;
+	}
+
+	body.app-bar-offset,
+	.app-bar + .sheet {
+		margin-top: 48px;
+	}
+
+	.app-bar.with-tabs + .sheet {
+		margin-top: 96px;
+	}
+
+	.app-bar > .material-icons,
+	.app-bar > h1 {
+		height: 48px;
+		line-height: 48px;
+	}
+
+	.app-bar > .material-icons.nav {
+		width: 48px;
+	}
+
+	.app-bar > .material-icons {
+		font-size: 24px;
+	}
+
+	.app-bar > h1 {
+		font-size: 20px;
+	}
+
+	.app-bar > .material-icons.papyrus-button:not(.nav)::after {
+		left: 0;
+		top: 6px;
+	}
+
+	.app-bar > .material-icons.nav::after {
+		left: 6px;
+		top: 6px;
+	}
+
+}
+
+/* Mobile Portrait */
+@media (max-width: 600px) and (orientation: portrait) {
+
+	.app-bar {
+		min-height: 56px;
+	}
+
+	.app-bar::before {
+		height: 56px;
+	}
+
+	body.app-bar-offset,
+	.app-bar + .sheet {
+		margin-top: 56px;
+	}
+
+	.app-bar.with-tabs + .sheet {
+		margin-top: 104px;
+	}
+
+	.app-bar > .material-icons,
+	.app-bar > h1 {
+		height: 56px;
+		line-height: 56px;
+	}
+
+	.app-bar > .material-icons.nav {
+		width: 56px;
+	}
+
+	.app-bar > .material-icons {
+		font-size: 24px;
+	}
+
+	.app-bar > h1 {
+		font-size: 20px;
+	}
+
+	.app-bar > .material-icons.papyrus-button:not(.nav)::after {
+		left: 0;
+		top: 9px;
+	}
+
+	.app-bar > .material-icons.nav::after {
+		left: 10px;
+		top: 10px;
+	}
+
+	.snackbar {
+		width: 100%;
+		border-radius: 0;
+	}
+
+}
+
+/* Mobile */
+@media (max-width: 959px) and (orientation: landscape),
+	(max-width: 600px) and (orientation: portrait) {
+
+	ul.papyrus-tabs > li {
+		min-width: 72px;
+	}
+
+	ul.papyrus-tabs.with-1 > li {
+		width: 100%;
+	}
+
+	ul.papyrus-tabs.with-2 > li {
+		width: 50%;
+	}
+
+	ul.papyrus-tabs.with-3 > li {
+		width: 33.3333%;
+	}
+
+	ul.papyrus-tabs.with-4 > li {
+		width: 25%;
+	}
+
+	ul.papyrus-tabs.with-5 > li {
+		width: 20%;
+	}
+
+	.snackbar {
+		bottom: 0;
+	}
+
+}

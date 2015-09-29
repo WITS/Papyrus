@@ -1,0 +1,69 @@
+html {
+	/*font-family: Roboto, Arial, sans-serif;*/
+}
+
+body {
+	background-color: whitesmoke;
+}
+
+.app-bar {
+	background-color: dodgerblue;
+	/*color: rgba(255, 255, 255, 0.95);*/
+	color: white;
+}
+
+.papyrus-tabs .ripple {
+	color: orange;
+}
+
+.papyrus-tabs .bottom-bar {
+	color: orange;
+}
+
+.card {
+	max-width: 600px;
+}
+
+#z-demo {
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+	transition: box-shadow 0.2s;
+	-webkit-transition: box-shadow 0.2s;
+	-moz-transition: box-shadow 0.2s;
+	-o-transition: box-shadow 0.2s;
+	max-width: 256px;
+	min-height: 64px;
+	/*background-color: white;*/
+}
+
+#z-demo .ripple {
+	background-color: blue;
+}
+
+#z-demo::after {
+	content: attr(data-z);
+}
+
+.papyrus-text {
+	color: #0A95FF;
+}
+
+.sheet > div.papyrus-button {
+	margin-bottom: 12px;
+}
+
+.colored-button:not(.raised) {
+	color: #0A95FF;
+}
+
+/*.colored-button:not(.raised) .ripple {
+	background-color: #0A95FF;
+}*/
+
+.raised.colored-button {
+	background-color: #0A95FF;
+	color: white;
+}

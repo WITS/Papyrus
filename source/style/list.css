@@ -1,0 +1,90 @@
+ul.papyrus-list {
+	list-style: none;
+	padding: 0;
+	margin: 8px 0;
+}
+
+ul.papyrus-list > li {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	padding: 8px 16px;
+	min-height: 56px;
+}
+
+ul.papyrus-list > li > .line,
+ul.papyrus-list > li > .line1,
+ul.papyrus-list > li > .line2 {
+	font-family: Roboto;
+	font-weight: 400;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+ul.papyrus-list > li > .line {
+	font-size: 16px;
+	height: 40px;
+	line-height: 40px;
+}
+
+ul.papyrus-list > li > .line1 {
+	font-size: 16px;
+	padding-top: 8px;
+	height: 24px;
+	line-height: 24px;
+}
+
+ul.papyrus-list > li > .line2 {
+	font-size: 14px;
+	height: 24px;
+	/*line-height: 28px;*/
+}
+
+ul.papyrus-list.avatar > li {
+	position: relative;
+	padding-left: 72px;
+}
+
+ul.papyrus-list.icon-left > li {
+	position: relative;
+	padding-left: 56px;
+}
+
+ul.papyrus-list > li > .avatar {
+	position: absolute;
+	left: 16px;
+	top: calc(50% - 20px);
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	overflow: hidden;
+	background-color: gray;
+}
+
+ul.papyrus-list > li > .icon:first-child {
+	left: 16px;
+	top: calc(50% - 12px);
+}
+
+ul.papyrus-list > li > .avatar[data-src] {
+	background-image: url(attr(data-src));
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+ul.papyrus-list.icon-right > li {
+	padding-right: 56px;
+}
+
+ul.papyrus-list > li > .icon {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	/*background-color: gray;*/
+}
+
+ul.papyrus-list.avatar > li > .icon,
+ul.papyrus-list.icon-right > li > .icon:last-child {
+	right: 16px;
+	top: calc(50% - 12px);
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Papyrus Demo</title>
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="theme-color" content="dodgerblue" />
+	<script src='source/script/rivets.bundled.min.js'></script>
+	<script src='source/script/core.js'></script>
+	<script src='source/script/toolbar.js'></script>
+	<script src='source/script/card.js'></script>
+	<script src='source/script/input.js'></script>
+	<script src='source/script/material-icon-index.js'></script>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' href='demo.css' />
+	<link rel='stylesheet' href='source/style/toolbar.css' />
+	<link rel='stylesheet' href='source/style/card.css' />
+	<link rel='stylesheet' href='source/style/input.css' />
+	<link rel='stylesheet' href='source/style/list.css' />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class='app-bar' data-title='Hello World'>
+	<!-- Nav Icon -->
+	<i class='nav papyrus-button dark ink'>menu</i>
+	<!-- Title -->
+	<h1>Hello World</h1>
+	<!-- TODO: Action Icons -->
+	<i class='papyrus-button dark ink'>search</i>
+	<!-- <i class='papyrus-button dark ink'>favorite</i> -->
+	<!-- Menu Icon -->
+	<i class='menu papyrus-button dark ink'>more_vert</i>
+	<!-- Tabs -->
+	<ul class='papyrus-tabs light-ink'>
+		<li>one</li>
+		<li>two</li>
+		<li>three</li>
+		<!-- <li>four</li>
+		<li>five</li>
+		<li>six</li>
+		<li>seven</li> -->
+	</ul>
+</div>
+<div class='sheet'>
+<div id='z-demo' class='card' data-z='1' data-padding='true' onclick='change_z(this)'>Z = </div><br>
+<div class='card' data-z='1' data-padding='true'>
+	<div id='hello' class='papyrus-text' data-label="label"></div>
+	<div class='papyrus-text multiline' data-label="multiline label"></div>
+	<div class='papyrus-text floating' data-label="floating label"></div>
+	<div class='papyrus-text floating multiline' data-label="floating multiline label" data-counter="140"></div>
+	<div class='papyrus-text disabled' data-label="disabled label"></div>
+	<div class='papyrus-text floating' data-counter="20" data-label="counter label"></div>
+	<div class='papyrus-button ink colored-button'><i class='papyrus-icon'>check</i>Accept</div>&nbsp;&nbsp;<div class='papyrus-button ink'><i>close</i>Cancel</div>
+</div><br>
+<div class='papyrus-button ink'>Flat</div>&nbsp;&nbsp;
+<div class='papyrus-button ink colored-button'>Flat + Colored</div>&nbsp;&nbsp;
+<div class='papyrus-button raised ink'>Raised</div>&nbsp;&nbsp;
+<div class='papyrus-button raised ink light-ink colored-button'>Raised + Colored</div>
+<script>
+
+z = new Object();
+z.value = 1;
+z.dir = 1;
+function change_z(elem) {
+	z.value += z.dir;
+	if (z.value > 5) {
+		z.value = 4;
+		z.dir = -1;
+	} else if (z.value < 0) {
+		z.value = 1;
+		z.dir = 1;
+	}
+	elem.setAttribute("data-z", z.value);
+}
+</script>
+</div>
+</body>
+</html>

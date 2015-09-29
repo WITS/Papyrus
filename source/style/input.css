@@ -1,0 +1,986 @@
+body {
+	font-family: Roboto, Arial, sans-serif;
+}
+
+/* Text Input */
+
+.papyrus-text {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	font-size: 16px;
+}
+
+.papyrus-text > input[type='text'],
+.papyrus-text > textarea,
+.papyrus-text > .label,
+.papyrus-text > textarea ~ pre {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	font-family: Roboto, Arial, sans-serif;
+	font-size: 1em;
+	min-height: 48px;
+	padding: 16px 0px 16px;
+}
+
+.papyrus-text.floating > input[type='text'],
+.papyrus-text.floating > textarea,
+.papyrus-text.floating > textarea ~ pre,
+.papyrus-text.floating > .label {
+	min-height: 68px;
+	padding-top: 36px;
+}
+
+/*.papyrus-text.floating > textarea ~ pre {
+	padding-top: 18px;
+}*/
+
+.papyrus-text > input[type='text'],
+.papyrus-text > textarea {
+	width: 100%;
+	background-color: transparent;
+	color: #666;
+	border: none;
+	outline: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.papyrus-text > input[type='text']:focus,
+.papyrus-text > textarea:focus {
+	color: black;
+}
+
+.papyrus-text.dark > input[type='text'],
+.papyrus-text.dark > textarea {
+	color: #E8E8E8;
+}
+
+.papyrus-text.dark > input[type='text']:focus,
+.papyrus-text.dark > textarea:focus {
+	color: white;
+}
+
+.papyrus-text > input[type='text'] ~ .label,
+.papyrus-text > textarea ~ .label {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	color: #aaa;
+	z-index: -10;
+}
+
+.papyrus-text:not(.floating) > .label.floating {
+	display: none;
+}
+
+.papyrus-text.dark > input[type='text'] ~ .label,
+.papyrus-text.dark > textarea ~ .label {
+	color: #888;
+}
+
+.papyrus-text.floating > .label {
+	transition: padding-top 0.2s, font-size 0.2s;
+	-webkit-transition: padding-top 0.2s, font-size 0.2s;
+	-moz-transition: padding-top 0.2s, font-size 0.2s;
+	-o-transition: padding-top 0.2s, font-size 0.2s;
+}
+
+.papyrus-text.floating > input:focus ~ .label,
+.papyrus-text.floating > textarea:focus ~ .label,
+.papyrus-text.floating > .label.floating {
+	padding-top: 16px;
+	font-size: 12px;
+}
+
+.papyrus-text.floating > input:focus ~ .label,
+.papyrus-text.floating > textarea:focus ~ .label {
+	color: currentColor;
+}
+
+.papyrus-text.floating > .label.floating {
+	color: #757575;
+}
+
+.papyrus-text > input[type='text']:disabled,
+.papyrus-text > textarea:disabled {
+	color: #757575;
+}
+
+.papyrus-text > textarea {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	min-height: 0px;
+	height: 100%;
+	overflow: hidden;
+	resize: none;
+	word-wrap: break-word;
+}
+
+.papyrus-text > textarea ~ pre {
+	color: transparent;
+	z-index: -10000;
+	min-height: 0px;
+	margin: 0px;
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+
+.papyrus-text > textarea ~ pre::after {
+	content: " ";
+}
+
+.papyrus-text > .counter,
+.papyrus-text > .error {
+	position: absolute;
+	bottom: 8px;
+	font-size: 12px;
+}
+
+.papyrus-text > .counter {
+	right: 0px;
+	color: #aaa;
+}
+
+.papyrus-text.error > .counter {
+	color: red;
+}
+
+.papyrus-text.error {
+	color: red !important;
+}
+
+.papyrus-text.bottom > :first-child,
+.papyrus-text.bottom > textarea ~ pre {
+	padding-bottom: 38px;
+}
+
+/* Icons */
+
+.material-icons.dark {
+	color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.dark.inactive {
+	color: rgba(0, 0, 0, 0.26);
+}
+
+.material-icons.light {
+	color: rgba(255, 255, 255, 1);
+}
+.material-icons.light.inactive {
+	color: rgba(255, 255, 255, 0.3);
+}
+
+/* Button Input */
+
+.papyrus-button {
+	cursor: pointer;
+}
+
+:not(.material-icons).papyrus-button {
+	position: relative;
+	padding: 0 12px;
+	font-family: Roboto, Arial, sans-serif;
+	line-height: 36px;
+	height: 36px;
+	border-radius: 2px;
+	background-color: white;
+	display: inline-block;
+	overflow: hidden;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+	transition: box-shadow 0.2s;
+	-webkit-transition: box-shadow 0.2s;
+	-moz-transition: box-shadow 0.2s;
+	-o-transition: box-shadow 0.2s;
+}
+
+.papyrus-button > .papyrus-ripples {
+	width: 100%;
+}
+
+.papyrus-button.with-icon {
+	padding-left: 36px;
+}
+
+.papyrus-button > i {
+	position: absolute;
+	left: 6px;
+	top: 0;
+	/*position: relative;
+	top: 2px;*/
+	display: inline-block;
+	/*height: inherit;*/
+	width: 24px;
+	height: 36px;
+	line-height: 36px;
+	vertical-align: text-top;
+}
+
+.material-icons.papyrus-button {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	position: relative;
+	cursor: pointer;
+}
+
+:not(.app-bar) > .material-icons.papyrus-button {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	line-height: 1em;
+	text-align: center;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+/*.material-icons.papyrus-button::after {
+	position: absolute;
+	left: -0.25em;
+	top: -0.25em;
+	display: block;
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 50%;
+	background-color: currentColor;
+	opacity: 0;
+	content: "";
+	transition: opacity 0.5s;
+	-webkit-transition: opacity 0.5s;
+	-moz-transition: opacity 0.5s;
+	-o-transition: opacity 0.5s;
+}
+
+.material-icons.papyrus-button:active::after {
+	opacity: 0.5;
+	transition: opacity 0.2s;
+	-webkit-transition: opacity 0.2s;
+	-moz-transition: opacity 0.2s;
+	-o-transition: opacity 0.2s;
+}*/
+
+/* Bottom Edge Highlight */
+
+.papyrus-text > .bottom-edge {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: 1px;
+	padding-bottom: 7px;
+	border-top: 1px solid lightgray;
+}
+
+.papyrus-text.dark > .bottom-edge {
+	border-top-color: #666;
+}
+
+.papyrus-text.disabled > .bottom-edge {
+	border-top-style: dashed;
+}
+
+.papyrus-text > *:first-child:focus ~
+	.bottom-edge {
+}
+
+.papyrus-text.bottom > .bottom-edge {
+	padding-bottom: 31px;
+}
+
+.papyrus-text.error > .bottom-edge {
+	border-top-color: red;
+}
+
+.papyrus-text > .bottom-edge > .bottom-edge-highlight {
+	position: absolute;
+	left: 20%;
+	top: -1px;
+	display: inline-block;
+	background-color: currentColor;
+	width: 60%;
+	height: 1px;
+	opacity: 0;
+	transition: left 0.1s ease-out,
+		width 0.1s ease-out, height 0.1s;
+	-webkit-transition: left 0.1s ease-out,
+		width 0.1s ease-out, height 0.1s;
+	-moz-transition: left 0.1s ease-out,
+		width 0.1s ease-out, height 0.1s;
+	-o-transition: left 0.1s ease-out,
+		width 0.1s ease-out, height 0.1s;
+}
+
+.papyrus-text > *:first-child:focus ~
+	.bottom-edge > .bottom-edge-highlight {
+	left: 0%;
+	width: 100%;
+	height: 2px;
+	opacity: 1;
+}
+
+/* Dialogs */
+.papyrus-dialog-wrapper {
+	position: fixed;
+	left: -100px;
+	top: 35%;
+	/*display: none;*/
+	width: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: opacity 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-webkit-transition: opacity 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-moz-transition: opacity 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-o-transition: opacity 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+}
+
+.papyrus-dialog-wrapper.visible {
+	display: block;
+	left: 0;
+	width: 100%;
+	opacity: 1;
+	overflow: visible;
+	z-index: 701;
+	transition: none;
+	-webkit-transition: none;
+	-moz-transition: none;
+	-o-transition: none;
+}
+
+.papyrus-dialog {
+	/*position: relative;
+	left: 0;
+	top: -50%;*/
+	display: block;
+	max-width: 280px;
+	margin: 0 auto;
+	background-color: white;
+	color: rgba(0, 0, 0, 0.9);
+	border-radius: 2px;
+	animation: papyrus-dialog-hidden 0.2s ease-in;
+	-webkit-animation: papyrus-dialog-hidden 0.2s ease-in;
+	-moz-animation: papyrus-dialog-hidden 0.2s ease-in;
+	-o-animation: papyrus-dialog-hidden 0.2s ease-in;
+}
+
+.papyrus-dialog-wrapper.visible > .papyrus-dialog {
+	animation: papyrus-dialog-visible 0.5s;
+	-webkit-animation: papyrus-dialog-visible 0.5s;
+	-moz-animation: papyrus-dialog-visible 0.5s;
+	-o-animation: papyrus-dialog-visible 0.5s;
+}
+
+.papyrus-dialog > *:empty {
+	display: none;
+}
+
+.papyrus-dialog-title {
+	padding: 24px 24px 0;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.papyrus-dialog-text-content {
+	padding: 20px 24px 24px;
+	color: rgba(78, 78, 78, 0.85);
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+
+.papyrus-dialog-rich-content {
+	
+}
+
+.papyrus-dialog-actions-wrapper {
+	padding: 8px;
+	text-align: right;
+	font-weight: 500;
+}
+
+.papyrus-dialog-actions-wrapper .papyrus-button {
+	text-transform: uppercase;
+}
+
+.papyrus-page-overlay {
+	position: fixed;
+	left: -100px;
+	top: 0;
+	display: block;
+	width: 0;
+	height: 100%;
+	opacity: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	transition: opacity 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-webkit-transition: opacity 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-moz-transition: opacity 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-o-transition: opacity 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+}
+
+.papyrus-dialog-wrapper.visible ~ .papyrus-page-overlay {
+	opacity: 1;
+	left: 0;
+	width: 100%;
+	z-index: 700;
+	transition: opacity 0.2s;
+	-webkit-transition: opacity 0.2s;
+	-moz-transition: opacity 0.2s;
+	-o-transition: opacity 0.2s;
+}
+
+/* Floating Action Button */
+.sheet-tab:not(.selected) .papyrus-fab {
+	width: 0;
+	height: 0;
+	z-index: 404;
+	transform: scale(0);
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	-o-transform: scale(0);
+}
+
+.sheet-tab:not(.selected) .papyrus-fab,
+.sheet-tab:not(.selected) .papyrus-fab.expandable:not(.toggle):not(:hover),
+.sheet-tab:not(.selected) .papyrus-fab.expandable.toggle:not(.expanded) {
+	animation: delay-hide-fab 0.25s;
+	-webkit-animation: delay-hide-fab 0.25s;
+	-moz-animation: delay-hide-fab 0.25s;
+	-o-animation: delay-hide-fab 0.25s;
+}
+
+.papyrus-fab {
+	position: relative;
+	font-size: 16px;
+	width: 56px;
+	height: 56px;
+	line-height: 56px;
+	border-radius: 50%;
+	text-align: center;
+	background-color: white;
+	color: rgba(0, 0, 0, 0.8);
+	cursor: pointer;
+	z-index: 405;
+	transition: box-shadow 0.2s, transform 0.5s ease 0.1s,
+		left 0.5s, right 0.5s, top 0.5s, bottom 0.5s;
+	-webkit-transition: box-shadow 0.2s, -webkit-transform 0.25s ease 0.1s,
+		left 0.5s, right 0.5s, top 0.5s, bottom 0.5s;
+	-moz-transition: box-shadow 0.2s, -moz-transform 0.25s ease 0.1s,
+		left 0.5s, right 0.5s, top 0.5s, bottom 0.5s
+	-o-transition: box-shadow 0.2s, -o-transform 0.25s ease 0.1s,
+		left 0.5s, right 0.5s, top 0.5s, bottom 0.5s
+}
+
+.papyrus-fab.small {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+}
+
+.papyrus-fab.expandable.toggle.expanded {
+	z-index: 601;
+}
+
+.papyrus-fab > i {
+	line-height: inherit;
+}
+
+.papyrus-fab.expandable:not(.toggle):not(:hover),
+.papyrus-fab.expandable.toggle:not(.expanded) {
+	overflow: hidden;
+	animation: delay-overflow 0.5s;
+	-webkit-animation: delay-overflow 0.5s;
+	-moz-animation: delay-overflow 0.5s;
+	-o-animation: delay-overflow 0.5s;
+}
+
+.papyrus-fab.expandable.toggle::before {
+	position: fixed;
+	left: -100px;
+	/*top: -100px;*/
+	top: 0;
+	display: block;
+	width: 0;
+	/*height: 0;*/
+	height: 100%;
+	background-color: transparent;
+	cursor: default;
+	z-index: 620;
+	content: "";
+	transition: background-color 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-webkit-transition: background-color 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-moz-transition: background-color 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+	-o-transition: background-color 0.2s,
+		left 0s linear 0.2s, width 0s linear 0.2s;
+}
+
+.papyrus-fab.expandable.toggle.expanded::before {
+	left: 0;
+	/*top: 0;*/
+	width: 100%;
+	/*height: 100%;*/
+	background-color: rgba(0, 0, 0, 0.5);
+	transition: background-color 0.2s;
+	-webkit-transition: background-color 0.2s;
+	-moz-transition: background-color 0.2s;
+	-o-transition: background-color 0.2s;
+}
+
+.papyrus-fab.expandable.toggle.expanded::after {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	background-color: inherit;
+	z-index: 621;
+	content: "";
+}
+
+.papyrus-fab.expandable > i.open,
+.papyrus-fab.expandable > i.close {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	line-height: inherit;
+	text-align: center;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
+	opacity: 1;
+	z-index: 622;
+	transition: opacity 0.25s, transform 0.2s linear;
+	-webkit-transition: opacity 0.25s, -webkit-transform 0.2s linear;
+	-moz-transition: opacity 0.25s, -moz-transform 0.2s linear;
+	-o-transition: opacity 0.25s, -o-transform 0.2s linear;
+}
+
+.papyrus-fab.expandable:not(.toggle):hover > i.open,
+.papyrus-fab.expandable.toggle.expanded > i.open {
+	opacity: 0;
+	transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+}
+
+.papyrus-fab.expandable:not(.toggle):not(:hover) > i.close,
+.papyrus-fab.expandable.toggle:not(.expanded) > i.close {
+	opacity: 0;
+	transform: rotate(-180deg);
+	-webkit-transform: rotate(-180deg);
+	-moz-transform: rotate(-180deg);
+	-o-transform: rotate(-180deg);
+}
+
+.papyrus-fab.expandable > ul {
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	display: block;
+	width: 100%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	z-index: 622;
+}
+
+.papyrus-fab.expandable:not(.toggle):not(:hover) > ul > li,
+.papyrus-fab.expandable.toggle:not(.expanded) > ul > li {
+	/*opacity: 0;*/
+	transform: scale(0);
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	-o-transform: scale(0);
+	transition: transform 0.2s;
+	-webkit-transition: -webkit-transform 0.2s;
+	-moz-transition: -moz-transform 0.2s;
+	-o-transition: -o-transform 0.2s;
+}
+
+.papyrus-fab.expandable:not(.toggle):hover > ul > li,
+.papyrus-fab.expandable.toggle.expanded > ul > li {
+	/*opacity: 1;*/
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-o-transform: scale(1);
+	transition: transform 0.5s;
+	-webkit-transition: -webkit-transform 0.5s;
+	-moz-transition: -moz-transform 0.5s;
+	-o-transition: -o-transform 0.5s;
+}
+
+.papyrus-fab.expandable:not(.toggle):hover > ul > li:nth-last-child(1),
+.papyrus-fab.expandable.toggle.expanded > ul > li:nth-last-child(1) {
+	transition-delay: 0.03s;
+	-webkit-transition-delay: 0.03s;
+	-moz-transition-delay: 0.03s;
+	-o-transition-delay: 0.03s;
+}
+
+.papyrus-fab.expandable:not(.toggle):hover > ul > li:nth-last-child(2),
+.papyrus-fab.expandable.toggle.expanded > ul > li:nth-last-child(2) {
+	transition-delay: 0.08s;
+	-webkit-transition-delay: 0.08s;
+	-moz-transition-delay: 0.08s;
+	-o-transition-delay: 0.08s;
+}
+
+.papyrus-fab.expandable:not(.toggle):hover > ul > li:nth-last-child(3),
+.papyrus-fab.expandable.toggle.expanded > ul > li:nth-last-child(3) {
+	transition-delay: 0.12s;
+	-webkit-transition-delay: 0.12s;
+	-moz-transition-delay: 0.12s;
+	-o-transition-delay: 0.12s;
+}
+
+.papyrus-fab.expandable:not(.toggle):hover > ul > li:nth-last-child(4),
+.papyrus-fab.expandable.toggle.expanded > ul > li:nth-last-child(4) {
+	transition-delay: 0.14s;
+	-webkit-transition-delay: 0.14s;
+	-moz-transition-delay: 0.14s;
+	-o-transition-delay: 0.14s;
+}
+
+.papyrus-fab.expandable:not(.toggle):hover > ul > li:nth-last-child(5),
+.papyrus-fab.expandable.toggle.expanded > ul > li:nth-last-child(5) {
+	transition-delay: 0.15s;
+	-webkit-transition-delay: 0.15s;
+	-moz-transition-delay: 0.15s;
+	-o-transition-delay: 0.15s;
+}
+
+.papyrus-fab.expandable:not(.toggle):hover > ul > li:nth-last-child(6),
+.papyrus-fab.expandable.toggle.expanded > ul > li:nth-last-child(6) {
+	transition-delay: 0.16s;
+	-webkit-transition-delay: 0.16s;
+	-moz-transition-delay: 0.16s;
+	-o-transition-delay: 0.16s;
+}
+
+.papyrus-fab.expandable > ul > li {
+	display: block;
+	margin: 0 auto 16px;
+}
+
+/* TODO: Tooltips */
+*[data-tooltip] {
+	position: relative;
+}
+
+.papyrus-fab[data-tooltip]::before,
+.papyrus-fab > i[data-tooltip]::before {
+	position: absolute;
+	right: 100%;
+	top: calc(50% - 12px);
+	display: block;
+	height: 24px;
+	margin-right: 8px;
+	padding: 0 8px;
+	line-height: 24px;
+	border-radius: 2px;
+	font-family: Roboto;
+	font-weight: 500;
+	font-size: 14px;
+	background-color: rgba(97, 97, 97, 0.9);
+	color: rgba(255, 255, 255, 0.9);
+	white-space: nowrap;
+	content: attr(data-tooltip);
+}
+
+/* Ink */
+
+.ink {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.papyrus-ripples {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	background-color: rgba(0, 0, 0, 0.01);
+	overflow: hidden;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+	z-index: 1000;
+}
+
+.papyrus-ripples.light {
+	background-color: rgba(255, 255, 255, 0.01);
+}
+
+.papyrus-ripples:empty {
+	display: none;
+}
+
+.papyrus-button.material-icons > .papyrus-ripples {
+	left: calc(50% - 0.75em);
+	top: calc(50% - 0.75em);
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 50%;
+}
+
+.ripple-position {
+	position: absolute;
+	display: block;
+	width: 300%;
+	animation: ink-ripple-position 0.75s linear;
+	-webkit-animation: ink-ripple-position 0.75s linear;
+	-moz-animation: ink-ripple-position 0.75s linear;
+	-o-animation: ink-ripple-position 0.75s linear;
+}
+
+.papyrus-button.material-icons > .papyrus-ripples .ripple-position {
+	animation-duration: 0.5s;
+	-webkit-animation-duration: 0.5s;
+	-moz-animation-duration: 0.5s;
+	-o-animation-duration: 0.5s;
+}
+
+.ripple-position::before {
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 100%;
+}
+
+.papyrus-button .ripple-position {
+	opacity: 0.25;
+}
+
+.ripple {
+	position: absolute;
+	left: -50%;
+	top: -50%;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	/*color: black;*/
+	background-color: currentColor;
+	opacity: 1.0;
+}
+
+body.msie-9 .ink:not(.papyrus-button) > .papyrus-ripples .ripple {
+	opacity: 0.1;
+}
+
+.papyrus-ripples.light .ripple {
+	/*color: white;*/
+	background-color: currentColor;
+}
+
+.ripple-position.done .ripple {
+	opacity: 0;
+	animation: ink-ripple 0.75s linear;
+	-webkit-animation: ink-ripple 0.75s linear;
+	-moz-animation: ink-ripple 0.75s linear;
+	-o-animation: ink-ripple 0.75s linear;
+}
+
+.papyrus-button.material-icons > .papyrus-ripples .ripple {
+	animation-duration: 0.5s;
+	-webkit-animation-duration: 0.5s;
+	-moz-animation-duration: 0.5s;
+	-o-animation-duration: 0.5s	
+}
+
+.papyrus-button, .ink {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/* Animations */
+
+/* Generic Animations */
+@keyframes delay-overflow {
+	0%, 100% {
+		overflow: visible;
+	}
+}
+
+@-webkit-keyframes delay-overflow {
+	0%, 100% {
+		overflow: visible;
+	}
+}
+
+@-moz-keyframes delay-overflow {
+	0%, 100% {
+		overflow: visible;
+	}
+}
+
+@-o-keyframes delay-overflow {
+	0%, 100% {
+		overflow: visible;
+	}
+}
+
+/* Dialog Animations */
+@-webkit-keyframes papyrus-dialog-hidden {
+	0% {
+		-webkit-transform: scale(1);
+	}
+	100% {
+		-webkit-transform: scale(0);
+	}
+}
+
+@-webkit-keyframes papyrus-dialog-visible {
+	0% {
+		-webkit-transform: scale(0);
+	}
+	100% {
+		-webkit-transform: scale(1);
+	}
+}
+
+/* FAB Animations */
+@keyframes delay-hide-fab {
+	0%, 100% {
+		width: 56px;
+		height: 56px;
+	}
+}
+
+@-webkit-keyframes delay-hide-fab {
+	0%, 100% {
+		width: 56px;
+		height: 56px;
+	}
+}
+
+@-moz-keyframes delay-hide-fab {
+	0%, 100% {
+		width: 56px;
+		height: 56px;
+	}
+}
+
+@-o-keyframes delay-hide-fab {
+	0%, 100% {
+		width: 56px;
+		height: 56px;
+	}
+}
+
+/* Ink Animations */
+@keyframes ink-ripple-position {
+	0% {
+		width: 20px;
+	}
+
+	60%, 100% {
+		width: 300%;
+	}
+}
+
+@keyframes ink-ripple {
+	0% {
+		opacity: 1.0;
+	}
+
+	50% {
+		opacity: 0.2;
+	}
+
+	80%, 100% {
+		opacity: 0.01;
+	}
+}
+
+@-webkit-keyframes ink-ripple-position {
+	0% {
+		width: 20px;
+	}
+
+	60%, 100% {
+		width: 300%;
+	}
+}
+
+@-webkit-keyframes ink-ripple {
+	0% {
+		opacity: 1.0;
+	}
+
+	50% {
+		opacity: 0.2;
+	}
+
+	80%, 100% {
+		opacity: 0.01;
+	}
+}
+
+@-moz-keyframes ink-ripple-position {
+	0% {
+		width: 20px;
+	}
+
+	60%, 100% {
+		width: 300%;
+	}
+}
+
+@-moz-keyframes ink-ripple {
+	0% {
+		opacity: 1.0;
+	}
+
+	50% {
+		opacity: 0.2;
+	}
+
+	80%, 100% {
+		opacity: 0.01;
+	}
+}
+
+@-o-keyframes ink-ripple-position {
+	0% {
+		width: 20px;
+	}
+
+	60%, 100% {
+		width: 300%;
+	}
+}
+
+@-o-keyframes ink-ripple {
+	0% {
+		opacity: 1.0;
+	}
+
+	50% {
+		opacity: 0.2;
+	}
+
+	80%, 100% {
+		opacity: 0.01;
+	}
+}
