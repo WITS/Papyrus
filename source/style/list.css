@@ -9,6 +9,7 @@ ul.papyrus-list > li {
 	-moz-box-sizing: border-box;
 	padding: 8px 16px;
 	min-height: 56px;
+	background-color: inherit;
 }
 
 ul.papyrus-list > li > .line,
@@ -73,6 +74,7 @@ ul.papyrus-list > li > .avatar[data-src] {
 }
 
 ul.papyrus-list.icon-right > li {
+	position: relative;
 	padding-right: 56px;
 }
 
@@ -80,7 +82,7 @@ ul.papyrus-list > li > .icon {
 	position: absolute;
 	width: 24px;
 	height: 24px;
-	/*background-color: gray;*/
+	background-color: inherit;
 }
 
 ul.papyrus-list.avatar > li > .icon,

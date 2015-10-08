@@ -9,6 +9,7 @@ body {
 
 .app-bar {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	position: fixed;
 	left: 0;
@@ -50,6 +51,7 @@ body {
 
 .app-bar > .material-icons {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	display: inline-block;
 	height: 100%;
@@ -101,6 +103,7 @@ body {
 
 .app-bar > h1 {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	position: absolute;
 	left: 72px;
@@ -170,6 +173,7 @@ body.touch-device ul.papyrus-tabs::-webkit-scrollbar {
 
 ul.papyrus-tabs > li {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	position: relative;
 	display: inline-block;
@@ -234,6 +238,7 @@ ul.papyrus-tabs:not(.no-bar) > li.selected > .bottom-bar {
 
 .sheet[data-tabs-id] > .sheet-tab {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	position: relative;
 	left: 0;
@@ -275,6 +280,7 @@ body.touch-device:not(.snackbar-visible) .snackbar {
 
 .snackbar {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	position: relative;
 	left: 0;
@@ -415,7 +421,7 @@ body.touch-device:not(.snackbar-visible) .snackbar {
 	}
 
 	.snackbar {
-		width: 100%;
+		max-width: 100%;
 		border-radius: 0;
 	}
 

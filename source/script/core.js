@@ -158,6 +158,12 @@ window.addEventListener("load", function() {
 			elem.parentElement.addClass("with-tabs");
 	});
 
+	// Regular buttons
+	document.querySelectorAll(".papyrus-button").forEach(
+		function(elem) {
+		elem.addClass("ink");
+	});
+
 	// Icon buttons
 	document.querySelectorAll("i.papyrus-button," +
 		".app-bar > i," +

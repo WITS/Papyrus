@@ -6,26 +6,32 @@ body {
 
 .papyrus-text {
 	position: relative;
+	left: 0;
+	top: 0;
 	display: inline-block;
 	width: 100%;
 	font-size: 16px;
+	padding: 0;
+	margin: 0;
 }
 
 .papyrus-text > input[type='text'],
 .papyrus-text > textarea,
 .papyrus-text > .label,
-.papyrus-text > textarea ~ pre {
+.papyrus-text > pre {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	font-family: Roboto, Arial, sans-serif;
 	font-size: 1em;
 	min-height: 48px;
 	padding: 16px 0px 16px;
+	justify-content: start;
 }
 
 .papyrus-text.floating > input[type='text'],
 .papyrus-text.floating > textarea,
-.papyrus-text.floating > textarea ~ pre,
+.papyrus-text.floating > pre,
 .papyrus-text.floating > .label {
 	min-height: 68px;
 	padding-top: 36px;
@@ -51,7 +57,13 @@ body.mobile.safari .papyrus-text > textarea {
 	background-color: transparent;
 	color: #666;
 	border: none;
+	border-width: 0;
 	outline: none;
+	margin: 0;
+	outline-width: 0;
+	text-indent: 0;
+	border-image-width: 0;
+	-webkit-appearance: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
@@ -129,7 +141,7 @@ body.mobile.safari .papyrus-text > textarea {
 	word-wrap: break-word;
 }
 
-.papyrus-text > textarea ~ pre {
+.papyrus-text > pre {
 	color: transparent;
 	z-index: -10000;
 	min-height: 0px;
@@ -138,7 +150,7 @@ body.mobile.safari .papyrus-text > textarea {
 	white-space: pre-wrap;
 }
 
-.papyrus-text > textarea ~ pre::after {
+.papyrus-text > pre::after {
 	content: " ";
 }
 
@@ -163,7 +175,7 @@ body.mobile.safari .papyrus-text > textarea {
 }
 
 .papyrus-text.bottom > :first-child,
-.papyrus-text.bottom > textarea ~ pre {
+.papyrus-text.bottom > pre {
 	padding-bottom: 38px;
 }
 
@@ -189,6 +201,16 @@ body.mobile.safari .papyrus-text > textarea {
 	cursor: pointer;
 }
 
+/* Override default button styling */
+button.papyrus-button {
+	border: none;
+	outline: none;
+	font-family: Roboto, Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	color: rgba(0, 0, 0, 0.8);
+}
+
 :not(.material-icons).papyrus-button {
 	position: relative;
 	padding: 0 12px;
@@ -199,6 +221,7 @@ body.mobile.safari .papyrus-text > textarea {
 	background-color: white;
 	display: inline-block;
 	overflow: hidden;
+	text-transform: uppercase;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -234,6 +257,7 @@ body.mobile.safari .papyrus-text > textarea {
 
 .material-icons.papyrus-button {
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	position: relative;
 	cursor: pointer;
@@ -696,8 +720,12 @@ body.mobile.safari .papyrus-text > textarea {
 	position: relative;
 }
 
-.papyrus-fab[data-tooltip]::before,
-.papyrus-fab > i[data-tooltip]::before {
+.papyrus-fab[data-tooltip]:not(.expandable):hover::before,
+.papyrus-fab.expandable:not(.toggle):hover .papyrus-fab[data-tooltip]::before,
+.papyrus-fab.expandable.toggle.expanded .papyrus-fab[data-tooltip]::before,
+.papyrus-fab[data-tooltip]:not(.expandable):hover > i[data-tooltip]::before,
+.papyrus-fab.expandable:not(.toggle):hover .papyrus-fab > i[data-tooltip]::before,
+.papyrus-fab.expandable.toggle.expanded .papyrus-fab > i[data-tooltip]::before {
 	position: absolute;
 	right: 100%;
 	top: calc(50% - 12px);

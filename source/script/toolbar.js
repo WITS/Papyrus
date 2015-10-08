@@ -212,6 +212,7 @@ PapyrusSnackbar.prototype.timeout = -1;
 
 
 PapyrusSnackbar.prototype.push = function(json) {
+	if (typeof json === 'string') var json = { text: json };
 	this.queue.push(json);
 	this.show();
 }
