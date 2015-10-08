@@ -31,7 +31,17 @@ body {
 	padding-top: 36px;
 }
 
-/*.papyrus-text.floating > textarea ~ pre {
+/* iOS Safari left padding fixes */
+body.mobile.safari .papyrus-text > input[type='text'] {
+	left: -1px;
+}
+
+body.mobile.safari .papyrus-text > textarea {
+	left: -3px;
+	width: calc(100% + 6px);
+}
+
+/*.papyrus-text.floating > pre {
 	padding-top: 18px;
 }*/
 
