@@ -105,23 +105,31 @@ NodeList.prototype.forEach = function(fn) {
 	}
 }
 
-IS_MOBILE = /(iPhone|iPod|iPad|Android|BlackBerry)/i.test(
-	navigator.userAgent);
 IS_TOUCH_DEVICE = !!(('ontouchstart' in window) ||
 	window.DocumentTouch && document instanceof DocumentTouch);
-IS_IE_9 = (navigator.userAgent.indexOf("MSIE 9") != -1);
+var userAgent = navigator.userAgent;
+IS_MOBILE = /(iPhone|iPod|iPad|Android|BlackBerry)/i.test(userAgent);
+IS_FIREFOX = (/\bfirefox\//i.test(userAgent) &&
+	!/\bseamonkey\//i.test(userAgent));
+IS_CHROME = (/\bchrome\//i.test(userAgent) &&
+	!/\bchromium\//i.test(userAgent));
+IS_SAFARI = (/\bsafari\//i.test(userAgent) &&
+	!/\b(?:chrome|chromium)\//i.test(userAgent));
+IS_OPERA = (/\b(?:opera|opr)\//i.test(userAgent));
+IS_WEBKIT = (IS_CHROME || IS_SAFARI || IS_OPERA);
+IS_MSIE = (/\bMSIE\b/i.test(userAgent));
+IS_MSIE_9 = (userAgent.indexOf("MSIE 9") != -1);
 
 // Check HTML on load
 window.addEventListener("load", function() {
 	// Add classes to the body
-	if (IS_MOBILE) {
-		document.body.addClass("mobile");
-	}
-	if (IS_TOUCH_DEVICE) {
-		document.body.addClass("touch-device");
-	}
-	if (IS_IE_9) {
-		document.body.addClass("msie-9");
+	var userAgentList = ["touch-device", "mobile", "firefox", "chrome", "safari", "opera",
+		"webkit", "msie", "msie-9"];
+	for (var i = userAgentList.length; i --; ) {
+		var className = userAgentList[i];
+		if (window["IS_" + className.toUpperCase().replace(/-/g, '_')]) {
+			document.body.addClass(className);
+		}
 	}
 
 	// For the following section
