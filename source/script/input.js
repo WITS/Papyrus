@@ -15,7 +15,7 @@ PapyrusText = function(json) {
 		this.value = elem.getAttribute("data-init-value") || "";
 		this.color = elem.style.color;
 		this.fontSize = elem.style.fontSize;
-		this.validate = (elem.getAttribute("data-validate") || "").split(",");
+		this.validate = (elem.getAttribute("data-validate") || "").split(", ");
 		this.highlightRegex = elem.getAttribute("data-highlight-regex");
 		if (this.highlightRegex) {
 			var regex = new Regex(this.highlightRegex, "g");
@@ -119,8 +119,9 @@ PapyrusText = function(json) {
 		// Regex?
 		if (v[0] == "/") {
 			var last_index = v.lastIndexOf("/");
-			this.validate.push(new RegExp(v.substr(1, last_index),
+			this.validate.push(new RegExp(v.substr(1, last_index - 1),
 				v.substr(last_index + 1)));
+			console.log(this.validate[this.validate.length - 1]);
 			continue;
 		}
 		// Predefined types
