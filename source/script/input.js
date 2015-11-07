@@ -6,6 +6,7 @@ PapyrusText = function(json) {
 	if (json instanceof Element) {
 		elem = json;
 		// var json = Object();
+		this.type = elem.getAttribute("data-type") || "text";
 		this.multiline = elem.hasClass("multiline");
 		this.floating = elem.hasClass("floating");
 		this.dark = elem.hasClass("dark");
@@ -14,6 +15,7 @@ PapyrusText = function(json) {
 		this.value = elem.getAttribute("data-init-value") || "";
 		this.color = elem.style.color;
 		this.fontSize = elem.style.fontSize;
+		this.validate = (elem.getAttribute("data-validate") || "").split(",");
 		this.highlightRegex = elem.getAttribute("data-highlight-regex");
 		if (this.highlightRegex) {
 			var regex = new Regex(this.highlightRegex, "g");
@@ -34,11 +36,12 @@ PapyrusText = function(json) {
 		if (this.counter.length) {
 			this.counter = parseInt(this.counter);
 		}
-		this.bottom = !!(this.error || this.counter || elem.hasClass("bottom"));
+		this.bottom = !!(this.validate || this.counter || elem.hasClass("bottom"));
 		if (this.bottom) {
 			elem.addClass("bottom");
 		}
 	} else {
+		this.type = json.type || "text";
 		this.multiline = json.multiline || false;
 		this.floating = json.floating || false;
 		this.dark = json.dark || false;
@@ -48,6 +51,7 @@ PapyrusText = function(json) {
 		this.color = json.color || "";
 		this.fontSize = json.fontSize || "";
 		this.bottom = !!(json.error || json.counter || json.bottom);
+		this.validate = json.validate || [];
 		this.highlightRegex = json.highlightRegex || new Array();
 		this.highlightClasses = json.highlightClasses || new Array();
 		this.counter = json.counter || null;
@@ -78,7 +82,7 @@ PapyrusText = function(json) {
 	var input;
 	if (!this.multiline) {
 		input = document.createElement("input");
-		input.type = "text";
+		input.type = this.type;
 		if (!IS_MOBILE) {
 			input.setAttribute("autocomplete", "off");
 		}
@@ -107,14 +111,54 @@ PapyrusText = function(json) {
 	bottom_edge_highlight.addClass("bottom-edge-highlight");
 	bottom_edge.appendChild(bottom_edge_highlight);
 
-	// Character counter and error box
+	// Parse validation processes
+	var validate = this.validate;
+	this.validate = [];
+	for (var i = validate.length; i --; ) {
+		var v = validate[i].trim();
+		// Regex?
+		if (v[0] == "/") {
+			var last_index = v.lastIndexOf("/");
+			this.validate.push(new RegExp(v.substr(1, last_index),
+				v.substr(last_index + 1)));
+			continue;
+		}
+		// Predefined types
+		var v_type = v.match(/^[a-zA-Z-_]+/);
+		var val = null;
+		if (v_type == "min-length") {
+			val = {
+				"type": "min-length",
+				"value": +v.substr(v.indexOf(":") + 1).trim()
+			};
+		} else if (v_type == "email") {
+			val = EMAIL_REGEX;
+		} else if (v_type == "equal-to") {
+			val = {
+				"type": "equal-to",
+				"other": v.substr(v.indexOf(":") + 1)
+			};
+		}
+		if (val) this.validate.push(val);
+	}
+
+	// Error box
+	if (this.validate.length) {
+		var errorText = document.createElement("div");
+		errorText.addClass("error");
+		errorText.innerHTML = "{ input.lastError }";
+		elem.appendChild(errorText);
+	}
+
+	// Character counter
 	if (this.counter) {
 		var counter = document.createElement("div");
 		counter.addClass("counter");
 		counter.innerHTML = "{ input.value | length } / " + this.counter;
 		elem.appendChild(counter);
-		elem.setAttribute("rv-class-error", "input.counterError < value");
 	}
+
+	elem.setAttribute("rv-class-error", "input.validationError < value");
 
 	rivets.bind(this.element, {
 		input: this,
@@ -130,6 +174,7 @@ PapyrusText.prototype.label = "";
 PapyrusText.prototype.value = "";
 PapyrusText.prototype.color = "";
 PapyrusText.prototype.fontSize = "";
+PapyrusText.prototype.lastError = "";
 PapyrusText.prototype.multiline = false;
 PapyrusText.prototype.floating = false;
 PapyrusText.prototype.dark = false;
@@ -144,6 +189,39 @@ PapyrusText.prototype.style = function() {
 		str += "font-size:" + this.fontSize + ";";
 	}
 	return str;
+}
+
+PapyrusText.prototype.validationError = function() {
+	// If this is empty, ignore errors
+	if (!this.value.length) return false;
+	// Check the counter if appropriate (max-length)
+	if (this.counter && this.counterError()) return true;
+	// Check each validation part
+	this.lastError = "";
+	for (var i = this.validate.length; i --; ) {
+		var v = this.validate[i];
+		if (v instanceof RegExp) {
+			this.lastError = "Invalid input";
+			if (!v.test(this.value)) return true;
+			continue;
+		}
+		if (v.type == "min-length") {
+			this.lastError = "Must be at least " + v.value + " characters";
+			if (this.value.length < v.value) return true;
+		}
+		if (v.type == "equal-to") {
+			var elem = document.querySelector(v.other);
+			if (!elem) continue;
+			elem = elem.object;
+			if (!elem) continue;
+			var label = elem.label.toLowerCase();
+			this.lastError = label ? "Does not match " + label :
+				"Fields do not match";
+			if (elem.value != this.value) return true;
+		}
+	}
+	this.lastError = "";
+	return false;
 }
 
 PapyrusText.prototype.counterError = function() {

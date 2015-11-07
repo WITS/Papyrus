@@ -261,6 +261,11 @@ ul.papyrus-tabs:not(.no-bar) > li.selected > .bottom-bar {
 	-o-transition: left 0.5s;
 }
 
+.sheet-tab {
+	/* Default value that's easy to override */
+	padding: 0 16px;
+}
+
 body:not(.touch-device) *[data-tooltip]:hover::after {
 	top: calc(100% + 8px);
 	border-radius: 1px;
@@ -411,6 +416,10 @@ body.touch-device:not(.snackbar-visible) .snackbar {
 		font-size: 24px;
 	}
 
+	.papyrus-button.material-icons > .papyrus-ripples {
+		top: 0.25em;
+	}
+
 	.app-bar > h1 {
 		font-size: 20px;
 	}
@@ -435,6 +444,10 @@ body.touch-device:not(.snackbar-visible) .snackbar {
 /* Mobile */
 @media (max-width: 959px) and (orientation: landscape),
 	(max-width: 600px) and (orientation: portrait) {
+
+	.papyrus-button.material-icons > .papyrus-ripples {
+		top: 0.25em !important;
+	}
 
 	ul.papyrus-tabs > li {
 		min-width: 72px;

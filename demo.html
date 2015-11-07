@@ -31,7 +31,7 @@
 	<!-- Menu Icon -->
 	<i class='menu papyrus-button dark ink'>more_vert</i>
 	<!-- Tabs -->
-	<ul class='papyrus-tabs light-ink'>
+	<ul class='papyrus-tabs light-ink' data-for="main">
 		<li>one</li>
 		<li>two</li>
 		<li>three</li>
@@ -41,38 +41,48 @@
 		<li>seven</li> -->
 	</ul>
 </div>
-<div class='sheet'>
-<div id='z-demo' class='card' data-z='1' data-padding='true' onclick='change_z(this)'>Z = </div><br>
-<div class='card' data-z='1' data-padding='true'>
-	<div id='hello' class='papyrus-text' data-label="label"></div>
-	<div class='papyrus-text multiline' data-label="multiline label"></div>
-	<div class='papyrus-text floating' data-label="floating label"></div>
-	<div class='papyrus-text floating multiline' data-label="floating multiline label" data-counter="140"></div>
-	<div class='papyrus-text disabled' data-label="disabled label"></div>
-	<div class='papyrus-text floating' data-counter="20" data-label="counter label"></div>
-	<div class='papyrus-button ink colored-button'><i class='papyrus-icon'>check</i>Accept</div>&nbsp;&nbsp;<div class='papyrus-button ink'><i>close</i>Cancel</div>
-</div><br>
-<div class='papyrus-button ink'>Flat</div>&nbsp;&nbsp;
-<div class='papyrus-button ink colored-button'>Flat + Colored</div>&nbsp;&nbsp;
-<div class='papyrus-button raised ink'>Raised</div>&nbsp;&nbsp;
-<div class='papyrus-button raised ink light-ink colored-button'>Raised + Colored</div>
-<script>
+<div class='sheet' data-tabs-id="main">
+<div class='sheet-tab'>
+	<div class='papyrus-text floating' data-label='Email' data-validate="email" data-required></div>
+	<div class='papyrus-text floating' data-label='Password' data-type='password' data-validate='min-length:6' id='password1' data-required></div>
+	<div class='papyrus-text floating' data-label='Confirm Password' data-type='password' data-validate='equal-to:#password1' data-required></div>
+</div>
+<div class='sheet-tab'>
+	Idk, tbh.
+</div>
+<div class='sheet-tab'>
+	<div id='z-demo' class='card' data-z='1' data-padding='true' onclick='change_z(this)'>Z = </div><br>
+	<div class='card' data-z='1' data-padding='true'>
+		<div id='hello' class='papyrus-text' data-label="label"></div>
+		<div class='papyrus-text multiline' data-label="multiline label"></div>
+		<div class='papyrus-text floating' data-label="floating label"></div>
+		<div class='papyrus-text floating multiline' data-label="floating multiline label" data-counter="140"></div>
+		<div class='papyrus-text disabled' data-label="disabled label"></div>
+		<div class='papyrus-text floating' data-counter="20" data-label="counter label"></div>
+		<div class='papyrus-button ink colored-button'><i class='papyrus-icon'>check</i>Accept</div>&nbsp;&nbsp;<div class='papyrus-button ink'><i>close</i>Cancel</div>
+	</div><br>
+	<div class='papyrus-button ink'>Flat</div>&nbsp;&nbsp;
+	<div class='papyrus-button ink colored-button'>Flat + Colored</div>&nbsp;&nbsp;
+	<div class='papyrus-button raised ink'>Raised</div>&nbsp;&nbsp;
+	<div class='papyrus-button raised ink light-ink colored-button'>Raised + Colored</div>
+	<script>
 
-z = new Object();
-z.value = 1;
-z.dir = 1;
-function change_z(elem) {
-	z.value += z.dir;
-	if (z.value > 5) {
-		z.value = 4;
-		z.dir = -1;
-	} else if (z.value < 0) {
-		z.value = 1;
-		z.dir = 1;
+	z = new Object();
+	z.value = 1;
+	z.dir = 1;
+	function change_z(elem) {
+		z.value += z.dir;
+		if (z.value > 5) {
+			z.value = 4;
+			z.dir = -1;
+		} else if (z.value < 0) {
+			z.value = 1;
+			z.dir = 1;
+		}
+		elem.setAttribute("data-z", z.value);
 	}
-	elem.setAttribute("data-z", z.value);
-}
-</script>
+	</script>
+</div>
 </div>
 </body>
 </html>

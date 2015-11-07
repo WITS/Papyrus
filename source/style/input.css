@@ -16,6 +16,7 @@ body {
 }
 
 .papyrus-text > input[type='text'],
+.papyrus-text > input[type='password'],
 .papyrus-text > textarea,
 .papyrus-text > .label,
 .papyrus-text > pre {
@@ -30,6 +31,7 @@ body {
 }
 
 .papyrus-text.floating > input[type='text'],
+.papyrus-text.floating > input[type='password'],
 .papyrus-text.floating > textarea,
 .papyrus-text.floating > pre,
 .papyrus-text.floating > .label {
@@ -38,7 +40,8 @@ body {
 }
 
 /* iOS Safari left padding fixes */
-body.mobile.safari .papyrus-text > input[type='text'] {
+body.mobile.safari .papyrus-text > input[type='text'],
+body.mobile.safari .papyrus-text > input[type='password'] {
 	left: -1px;
 }
 
@@ -52,6 +55,7 @@ body.mobile.safari .papyrus-text > textarea {
 }*/
 
 .papyrus-text > input[type='text'],
+.papyrus-text > input[type='password'],
 .papyrus-text > textarea {
 	width: 100%;
 	background-color: transparent;
@@ -68,21 +72,25 @@ body.mobile.safari .papyrus-text > textarea {
 }
 
 .papyrus-text > input[type='text']:focus,
+.papyrus-text > input[type='password']:focus,
 .papyrus-text > textarea:focus {
 	color: black;
 }
 
 .papyrus-text.dark > input[type='text'],
+.papyrus-text.dark > input[type='password'],
 .papyrus-text.dark > textarea {
 	color: #E8E8E8;
 }
 
 .papyrus-text.dark > input[type='text']:focus,
+.papyrus-text.dark > input[type='password']:focus,
 .papyrus-text.dark > textarea:focus {
 	color: white;
 }
 
 .papyrus-text > input[type='text'] ~ .label,
+.papyrus-text > input[type='password'] ~ .label,
 .papyrus-text > textarea ~ .label {
 	position: absolute;
 	left: 0px;
@@ -98,6 +106,7 @@ body.mobile.safari .papyrus-text > textarea {
 }
 
 .papyrus-text.dark > input[type='text'] ~ .label,
+.papyrus-text.dark > input[type='password'] ~ .label,
 .papyrus-text.dark > textarea ~ .label {
 	color: #888;
 }
@@ -126,6 +135,7 @@ body.mobile.safari .papyrus-text > textarea {
 }
 
 .papyrus-text > input[type='text']:disabled,
+.papyrus-text > input[type='password']:disabled,
 .papyrus-text > textarea:disabled {
 	color: #757575;
 }
@@ -172,6 +182,10 @@ body.mobile.safari .papyrus-text > textarea {
 
 .papyrus-text.error {
 	color: red !important;
+}
+
+.papyrus-text:not(.error) > .error {
+	display: none;
 }
 
 .papyrus-text.bottom > :first-child,
