@@ -118,9 +118,16 @@ PapyrusText = function(json) {
 		var v = validate[i].trim();
 		// Regex?
 		if (v[0] == "/") {
-			var last_index = v.lastIndexOf("/");
-			this.validate.push(new RegExp(v.substr(1, last_index - 1),
-				v.substr(last_index + 1)));
+			var slash_index = v.search(/[^\\]\//, 1) + 1;
+			var colon_index = v.indexOf(":", slash_index + 1);
+			this.validate.push({
+				type: "regex",
+				object: new RegExp(v.substr(1, slash_index - 1),
+					!colon_index ? v.substr(slash_index + 1) :
+					v.substr(slash_index + 1, colon_index - slash_index - 1)),
+				text: colon_index ? v.substr(colon_index).trim() :
+					"Invalid input"
+			});
 			console.log(this.validate[this.validate.length - 1]);
 			continue;
 		}
@@ -133,7 +140,13 @@ PapyrusText = function(json) {
 				"value": +v.substr(v.indexOf(":") + 1).trim()
 			};
 		} else if (v_type == "email") {
-			val = EMAIL_REGEX;
+			var colon_index = v.indexOf(":") + 1;
+			val = {
+				type: "regex",
+				object: EMAIL_REGEX,
+				text: colon_index ? v.substr(colon_index).trim() :
+					"Invalid email address"
+			};
 		} else if (v_type == "equal-to") {
 			val = {
 				"type": "equal-to",
@@ -201,9 +214,9 @@ PapyrusText.prototype.validationError = function() {
 	this.lastError = "";
 	for (var i = this.validate.length; i --; ) {
 		var v = this.validate[i];
-		if (v instanceof RegExp) {
-			this.lastError = "Invalid input";
-			if (!v.test(this.value)) return true;
+		if (v.type == "regex") {
+			this.lastError = v.text;
+			if (!v.object.test(this.value)) return true;
 			continue;
 		}
 		if (v.type == "min-length") {
