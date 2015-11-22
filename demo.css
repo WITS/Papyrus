@@ -1,5 +1,6 @@
 html {
 	/*font-family: Roboto, Arial, sans-serif;*/
+	overflow-y: scroll !important;
 }
 
 body {
@@ -13,7 +14,8 @@ body {
 }
 
 .papyrus-tabs .ripple {
-	color: orange;
+	/*color: orange;*/
+	color: rgba(0, 0, 0, 0.15);
 }
 
 .papyrus-tabs .bottom-bar {
@@ -63,7 +65,23 @@ body {
 	background-color: #0A95FF;
 }*/
 
-.raised.colored-button {
+.sheet-tab .raised.colored-button {
 	background-color: #0A95FF;
 	color: white;
+}
+
+.papyrus-fab#fab-demo {
+	position: fixed;
+	right: 32px;
+	bottom: 32px;
+	background-color: red;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.papyrus-fab#fab-demo .ripple {
+	color: rgba(255, 255, 255, 0.3);
+}
+
+.papyrus-fab#fab-demo ul .ripple {
+	color: rgba(0, 0, 0, 0.3);
 }

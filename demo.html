@@ -49,7 +49,17 @@
 	<div class='papyrus-text floating' data-label='Referrer' data-validate='/^\w{2,16}$/i:Invalid username' data-required></div>
 </div>
 <div class='sheet-tab'>
-	Idk, tbh.
+	Floating action button demo
+	<div id='fab-demo' class='papyrus-fab expandable toggle'>
+		<i class='open'>add</i>
+		<i class='close'>close</i>
+		<ul>
+			<li class='papyrus-fab small' data-tooltip="Create new"><i>create</i></li>
+			<li class='papyrus-fab small' data-tooltip="Load file"><i>library_books</i></li>
+			<li class='papyrus-fab small' data-tooltip="Save file"><i>save</i></li>
+			<li class='papyrus-fab small' data-tooltip="Share file"><i>share</i></li>
+		</ul>
+	</div>
 </div>
 <div class='sheet-tab'>
 	<div id='z-demo' class='card' data-z='1' data-padding='true' onclick='change_z(this)'>Z = </div><br>
@@ -83,6 +93,7 @@
 		elem.setAttribute("data-z", z.value);
 	}
 	</script>
+	<br><br>
 </div>
 </div>
 </body>
