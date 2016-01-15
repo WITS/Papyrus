@@ -1,21 +1,26 @@
 // Text input
 
+papyrus_text_id_count = 0;
+
 PapyrusText = function(json) {
 	var json = json || new Object();
 	var elem;
 	if (json instanceof Element) {
 		elem = json;
 		// var json = Object();
+		this.id = elem.getAttribute("id") || "";
 		this.type = elem.getAttribute("data-type") || "text";
 		this.multiline = elem.hasClass("multiline");
 		this.floating = elem.hasClass("floating");
 		this.dark = elem.hasClass("dark");
 		this.disabled = elem.hasClass("disabled");
 		this.label = elem.getAttribute("data-label") || "";
+		this.name = elem.getAttribute("data-name") || elem.getAttribute("data-label") || "";
 		this.value = elem.getAttribute("data-init-value") || "";
 		this.color = elem.style.color;
 		this.fontSize = elem.style.fontSize;
 		this.validate = (elem.getAttribute("data-validate") || "").split(", ");
+		if (this.validate[0] == "") this.validate.splice(0);
 		this.highlightRegex = elem.getAttribute("data-highlight-regex");
 		if (this.highlightRegex) {
 			var regex = new Regex(this.highlightRegex, "g");
@@ -36,17 +41,17 @@ PapyrusText = function(json) {
 		if (this.counter.length) {
 			this.counter = parseInt(this.counter);
 		}
-		this.bottom = !!(this.validate || this.counter || elem.hasClass("bottom"));
-		if (this.bottom) {
-			elem.addClass("bottom");
-		}
+		this.bottom = !!(this.validate.length || this.counter || elem.hasClass("bottom"));
+		if (this.bottom) elem.addClass("bottom");
 	} else {
+		this.id = json.id || "";
 		this.type = json.type || "text";
 		this.multiline = json.multiline || false;
 		this.floating = json.floating || false;
 		this.dark = json.dark || false;
 		this.disabled = json.disabled || false;
 		this.label = json.label || "";
+		this.name = json.name || json.label || "";
 		this.value = json.value || "";
 		this.color = json.color || "";
 		this.fontSize = json.fontSize || "";
@@ -73,6 +78,7 @@ PapyrusText = function(json) {
 		elem.style.color = this.color;
 		elem.setAttribute("data-label", this.label);
 	}
+	if (!this.id) this.id = "papyrus-text-" + (++papyrus_text_id_count);
 	elem.setAttribute("rv-style", "input.style < color fontSize");
 	elem.setAttribute("rv-class-floating", "input.floating");
 	elem.setAttribute("rv-class-dark", "input.dark");
@@ -97,11 +103,16 @@ PapyrusText = function(json) {
 	if (this.disabled) {
 		input.disabled = true;
 	}
+	if (this.name) {
+		input.name = this.name;
+	}
+	input.id = this.id;
 	input.setAttribute("rv-value", "input.value");
 	input.setAttribute("rv-disabled", "input.disabled");
-	var label = document.createElement("div");
+	var label = document.createElement("label");
 	label.addClass("label");
 	label.appendTextNode(this.label);
+	label.setAttribute("for", this.id);
 	label.setAttribute("rv-class-floating", "input.value");
 	elem.appendChild(label);
 	var bottom_edge = document.createElement("div");
@@ -123,9 +134,9 @@ PapyrusText = function(json) {
 			this.validate.push({
 				type: "regex",
 				object: new RegExp(v.substr(1, slash_index - 1),
-					!colon_index ? v.substr(slash_index + 1) :
+					colon_index === -1 ? v.substr(slash_index + 1) :
 					v.substr(slash_index + 1, colon_index - slash_index - 1)),
-				text: colon_index ? v.substr(colon_index).trim() :
+				text: colon_index !== -1 ? v.substr(colon_index + 1).trim() :
 					"Invalid input"
 			});
 			console.log(this.validate[this.validate.length - 1]);
@@ -137,6 +148,11 @@ PapyrusText = function(json) {
 		if (v_type == "min-length") {
 			val = {
 				"type": "min-length",
+				"value": +v.substr(v.indexOf(":") + 1).trim()
+			};
+		} else if (v_type == "max-length") {
+			val = {
+				"type": "max-length",
 				"value": +v.substr(v.indexOf(":") + 1).trim()
 			};
 		} else if (v_type == "email") {
@@ -223,6 +239,10 @@ PapyrusText.prototype.validationError = function() {
 			this.lastError = "Must be at least " + v.value + " characters";
 			if (this.value.length < v.value) return true;
 		}
+		if (v.type == "max-length") {
+			this.lastError = "Must be less than " + (v.value + 1) + " characters";
+			if (this.value.length > v.value) return true;
+		}
 		if (v.type == "equal-to") {
 			var elem = document.querySelector(v.other);
 			if (!elem) continue;
@@ -286,6 +306,163 @@ PapyrusButton = function(json) {
 		elem.addEventListener("mouseup", json.action);
 	}
 	return elem;
+}
+
+// Requests (AJAX)
+PapyrusRequest = function(json) {
+	var json = json || new Object();
+	if (json.return_type) this.return_type = json.return_type;
+	if (json.url) this.url = json.url;
+	this.keys =  json.keys || new Object();
+	this.onsuccess = (json.onsuccess || function(){});
+	this.onerror = (json.onerror || function(){});
+}
+
+PapyrusRequest.prototype.return_type = "json";
+PapyrusRequest.prototype.url = "";
+
+PapyrusRequest.prototype.submit = function() {
+	// Request
+	var self = this;
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("POST", this.url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	var form_str = "";
+	for (var k in this.keys) {
+		if (form_str.length > 0) {
+			form_str += "&";
+		}
+		form_str += encodeURIComponent(k) + "=" + encodeURIComponent(this.keys[k]);
+	}
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var success_argument = null;
+			switch (self.return_type) {
+				case "text": success_argument = xmlhttp.responseText; break;
+				case "xml": success_argument = xmlhttp.responseXML; break;
+				case "json": success_argument = eval('(' + xmlhttp.responseText + ')'); break;
+				default: break;
+			}
+			self.onsuccess(success_argument);
+		} else if (xmlhttp.readyState == 4 && /^(4|5)/.test(xmlhttp.status)) {
+			self.onerror(self);
+		}
+	}
+	xmlhttp.send(form_str);
+	return true;
+}
+
+// Converts an array to keys for a SparkRequest
+function array_to_request_keys(_array, key_prefix, other_keys) {
+	if (key_prefix == null) {
+		key_prefix = "item";
+	}
+	var _keys = (other_keys != null ? other_keys : {});
+	for (var i = 0; i < _array.length; ++ i) {
+		_keys[key_prefix + i] = _array[i];
+	}
+	_keys[key_prefix + "_length"] = _array.length;
+	return _keys;
+}
+
+// Forms
+PapyrusForm = function(json) {
+	var _this = this;
+	if (json instanceof Element) {
+		var elem = json;
+		json = new Object();
+		this.url = elem.getAttribute("data-url") || "";
+		this.return_type = elem.getAttribute("data-return-type") || "json";
+		var onsuccess = elem.getAttribute("onsuccess") || "";
+		// this.onsuccess_vars = new Array();
+		// if (/\w+(?:\(.*\))?;?/.test()) { // Named function
+		// 	this.onsuccess = window[onsuccess.replace(/\W.*$/, "")];
+		// 	var left_par = onsuccess.indexOf("(");
+		// 	var right_par = onsuccess.indexOf(")");
+		// 	if (left_par !== -1 && right_par !== -1) {
+		// 		this.onsuccess_vars = onsuccess.substr(left_par + 1, right_par - left_par - 1).split();
+		// 	}
+		// } else { // Anonymous function
+			this.onsuccess = eval('(function(){' + onsuccess + '})');
+		// }
+		this.validate_objects = new Array();
+		this.key_elements = new Array();
+		function find_key_elements(_elem) {
+			_elem.children.forEach(function(__this) {
+				if (__this.getAttribute("data-validate")) {
+					_this.validate_objects.push(__this.object);
+				}
+				if (__this.name) {
+					if (__this.value !== 'undefined') {
+						_this.key_elements.push(__this);
+					}
+				}
+				find_key_elements(__this);
+			});
+		}
+		find_key_elements(elem);
+		this.element = elem;
+	} else {
+		// TODO
+
+	}
+	_this.element.addEventListener("submit", function(e) {
+		e.preventDefault();
+		_this.submit();
+	});
+}
+
+PapyrusForm.prototype.url = "";
+PapyrusForm.prototype.return_type = "json";
+
+PapyrusForm.prototype.submit = function() {
+	// Validate
+	for (var i = this.validate_objects.length; i --; ) {
+		var elem = this.validate_objects[i];
+		if (!elem.value.length || elem.lastError.length) {
+			return;
+		}
+	}
+	// Prepare for request
+	var keys = new Object();
+	for (var i = this.key_elements.length; i --; ) {
+		var elem = this.key_elements[i];
+		keys[elem.name] = elem.value;
+	}
+	// Create request
+	var _this = this;
+	var request = new PapyrusRequest({
+		return_type: this.return_type,
+		url: this.url,
+		keys: keys,
+		onsuccess: function(json) {
+			console.log(json);
+			if (!json.success && json.success !== 'undefined') {
+				// Something went wrong
+				if (typeof json.error === 'object') {
+					for (var i = _this.validate_objects.length; i --; ) {
+						var obj = _this.validate_objects[i];
+						obj.lastError = json.error[obj.name] || "";
+						if (obj.lastError) obj.element.addClass("error");
+					}
+					// Dialog error
+					if (json.error.dialog) {
+						PapyrusDialog.show(json.error.dialog);
+					}
+				} else {
+					PapyrusDialog.show(json.error || "Something went wrong");
+				}
+			} else {
+				_this.onsuccess(json);
+			}
+		}
+	});
+	// Submit request
+	request.submit();
+}
+
+PapyrusForm.prototype.onerror = function() {
+	
 }
 
 // Dialogs

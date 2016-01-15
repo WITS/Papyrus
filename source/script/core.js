@@ -142,7 +142,7 @@ window.addEventListener("load", function() {
 
 	// Prototype-based Elements
 	var proto_classes = ["papyrus-text", "app-bar",
-		"papyrus-tabs"];
+		"papyrus-tabs", "papyrus-form"];
 	var proto_str = proto_classes.join(",").replace(
 		/(^|,)(\w)/g, "$1.$2");
 	var proto_regex = new RegExp("(" +
@@ -160,7 +160,7 @@ window.addEventListener("load", function() {
 	});
 
 	// Regular buttons
-	document.querySelectorAll(".papyrus-button").forEach(
+	document.querySelectorAll(".papyrus-button, .papyrus-dropdown > li").forEach(
 		function(elem) {
 		elem.addClass("ink");
 	});
@@ -180,30 +180,53 @@ window.addEventListener("load", function() {
 		elem.parentElement.addClass("with-icon");
 	});
 
+	// Dropdown button(s)
+	document.querySelectorAll(".papyrus-dropdown-button").forEach(
+		function(elem) {
+		elem.addEventListener("mouseup", function(event) {
+			// console.log(event.target);
+			var delay = true;
+			var btn;
+			for (var el = event.target; true; el = el.parentElement) {
+				if (el.tagName == "LI" || el.hasClass("papyrus-dropdown-button")) {
+					delay = (el != elem);
+					btn = el;
+					break;
+				}
+				if (el == document.body) break;
+			}
+			setTimeout(function() {
+				elem.toggleClass("expanded");
+				var onaction = btn.getAttribute("onaction");
+				if (onaction) eval(onaction);
+			}, delay ? 250 : 1);
+		});
+	});
+
 	// Floating action button(s)
 	document.querySelectorAll(".papyrus-fab").forEach(
 		function(elem) {
-			elem.addClass("ink");
-			if (!(elem.hasClass("expandable") && elem.hasClass("toggle"))) return;
-			elem.addEventListener("mouseup", function(event) {
-				// console.log(event.target);
-				var delay = true;
-				var fab;
-				for (var el = event.target; true; el = el.parentElement) {
-					if (el.hasClass("papyrus-fab")) {
-						delay = (el != elem);
-						fab = el;
-						break;
-					}
-					if (el == document.body) break;
+		elem.addClass("ink");
+		if (!(elem.hasClass("expandable") && elem.hasClass("toggle"))) return;
+		elem.addEventListener("mouseup", function(event) {
+			// console.log(event.target);
+			var delay = true;
+			var fab;
+			for (var el = event.target; true; el = el.parentElement) {
+				if (el.hasClass("papyrus-fab")) {
+					delay = (el != elem);
+					fab = el;
+					break;
 				}
-				setTimeout(function() {
-					elem.toggleClass("expanded");
-					var onaction = fab.getAttribute("onaction");
-					if (onaction) eval(onaction);
-				}, delay ? 250 : 1);
-			});
+				if (el == document.body) break;
+			}
+			setTimeout(function() {
+				elem.toggleClass("expanded");
+				var onaction = fab.getAttribute("onaction");
+				if (onaction) eval(onaction);
+			}, delay ? 250 : 1);
 		});
+	});
 
 	// Floating action button(s) icon(s)
 	document.querySelectorAll(".papyrus-fab > i").forEach(

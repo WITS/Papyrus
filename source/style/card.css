@@ -40,7 +40,8 @@
 *[data-z='3'],
 .papyrus-fab.held,
 .papyrus-fab.expandable:not(.toggle):hover,
-.papyrus-fab.expandable.toggle.expanded {
+.papyrus-fab.expandable.toggle.expanded,
+.papyrus-dropdown-button.expanded > .papyrus-dropdown {
 	z-index: 300;
 	box-shadow: 0px 9px 16px 0px
 		rgba(0, 0, 0, 0.4),
