@@ -57,6 +57,11 @@ PapyrusTabs = function(json) {
 		this.hasSlide = !elem.hasClass("no-slide");
 		this.tabLength = elem.children.length;
 
+		var onchange = elem.getAttribute("onchange");
+		if (onchange) {
+			this.onchange = eval('(function() {' + onchange + '})');
+		}
+
 		this.element = elem;
 	} else {
 
@@ -167,7 +172,7 @@ PapyrusTabs.prototype.selectTab = function(tab) {
 
 // The default onchange event attempts to use data attributes to find the
 // sheet-tabs to manipulate
-PapyrusTabs.prototype.onchange = function() {
+PapyrusTabs.prototype.defaultOnchange = function() {
 	var sheet_id = this.element.getAttribute("data-for");
 	if (sheet_id == null) return false;
 	var sheet_query = "*[data-tabs-id='" + sheet_id.replace(/'/g, "\\'") + "']";
@@ -184,9 +189,9 @@ PapyrusTabs.prototype.onchange = function() {
 		" > .sheet-tab:nth-of-type(" + (1 + tab_id) + ")");
 	selected_sheet.addClass("selected");
 	window.scrollTo(0, 0);
-	// TODO: ACTUALLY MAKE THIS EASY TO REUSE
-	// MAYBE DO THE COLUMNS STUFF BEFORE THAT THOUGH
 }
+
+PapyrusTabs.prototype.onchange = PapyrusTabs.prototype.defaultOnchange;
 
 PapyrusSnackbar = function() {
 	this.queue = new Array();
